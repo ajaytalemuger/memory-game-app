@@ -27,7 +27,7 @@ class App extends Component {
 
     let element;
     if (this.state.displayGameBoard) {
-      element = <GameBoard />;
+      element = <GameBoard difficulty={this.state.selectedDifficult} />;
     } else {
       element = <GameMenu updateSelectedDifficulty={this.updateSelectedDifficulty.bind(this)} />;
     }

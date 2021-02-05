@@ -1,5 +1,3 @@
-.difficulty-selection {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
+.difficulty-selection-container {
+    margin-top: 30px;
 }
