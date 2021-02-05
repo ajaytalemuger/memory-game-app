@@ -158,7 +158,7 @@ class GameBoard extends Component {
                     if (this.state.selectedCards.includes(i)) {
                         cardContent = <Card.Header content={this.state.selectedCardValues[i]} />
                     } else if (this.state.resolvedCards.includes(i)) {
-                        style = { backgroundColor: 'green' }
+                        style = { boxShadow: '0px 0px' }
                         clickFunc = () => { }
                     }
                     return (
