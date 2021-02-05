@@ -23,11 +23,18 @@ class App extends Component {
     });
   }
 
+  resetGameboard() {
+    this.setState({
+      selectedDifficult: '',
+      displayGameBoard: false
+    });
+  }
+
   render() {
 
     let element;
     if (this.state.displayGameBoard) {
-      element = <GameBoard difficulty={this.state.selectedDifficult} />;
+      element = <GameBoard difficulty={this.state.selectedDifficult} onNewGameClick={this.resetGameboard.bind(this)} />;
     } else {
       element = <GameMenu updateSelectedDifficulty={this.updateSelectedDifficulty.bind(this)} />;
     }

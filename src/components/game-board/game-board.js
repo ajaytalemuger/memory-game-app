@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Grid, Card } from 'semantic-ui-react';
+import { Grid, Card, Button } from 'semantic-ui-react';
 import axios from 'axios';
 
 import 'semantic-ui-css/semantic.min.css';
@@ -37,7 +37,7 @@ class GameBoard extends Component {
             if (set.size > 1) {
                 if (this.state.watcherFlag) {
                     this.incrementErrorScore();
-                    setTimeout(this.clearSelectedCards.bind(this), 2000);
+                    this.timeoutId = setTimeout(this.clearSelectedCards.bind(this), 2000);
                 }
             } else {
                 this.addToResolvedCards();
@@ -108,6 +108,10 @@ class GameBoard extends Component {
     onCardClick(cardId) {
         if (this.state.selectedCards.length < this.state.maxSelectableCards) {
             this.updateCardValue(cardId);
+        } else {
+            clearTimeout(this.timeoutId);
+            this.clearSelectedCards();
+            this.updateCardValue(cardId);
         }
     }
 
@@ -124,7 +128,6 @@ class GameBoard extends Component {
             .then((response) => {
                 let timerFlag = true;
                 if (!this.state.timerFlag) {
-                    console.log("timer");
                     this.intervalId = setInterval(this.timerIncrement.bind(this), 1000);
                     timerFlag = true;
                 }
@@ -174,13 +177,16 @@ class GameBoard extends Component {
         return (
             <div>
                 <div className="score-board">
-                    <Grid columns={2} divided>
+                    <Grid columns={3} divided>
                         <Grid.Row>
                             <Grid.Column>
-                                <p>Timer: {this.state.timer}</p>
+                                <Button primary style={{ width: "50%" }} onClick={this.props.onNewGameClick}>New Game</Button>
                             </Grid.Column>
                             <Grid.Column>
-                                <p>Error Score: {this.state.errorScore}</p>
+                                <h1>Timer: {this.state.timer}</h1>
+                            </Grid.Column>
+                            <Grid.Column>
+                                <h1>Error Score: {this.state.errorScore}</h1>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
